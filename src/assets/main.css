@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* ─── Lumina Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  --lumina-primary: #005da7;
+  --lumina-secondary: #ab0a9a;
+  --lumina-tertiary: #006947;
+  --lumina-error: #ba1a1a;
+  --lumina-background: #f8f9ff;
+  --lumina-on-surface: #0b1c30;
+  --lumina-on-surface-variant: #414751;
+  --lumina-outline: #717783;
+  --lumina-outline-variant: #c1c7d3;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.32);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --glass-blur: blur(16px);
+  --glass-blur-heavy: blur(24px);
+
+  /* Element Plus overrides */
+  --el-color-primary: #005da7;
+  --el-color-primary-light-3: #3d84c4;
+  --el-color-primary-light-5: #80b2d3;
+  --el-color-primary-light-7: #b3d1e8;
+  --el-color-primary-light-8: #cce0f0;
+  --el-color-primary-light-9: #e8f2f9;
+  --el-color-primary-dark-2: #004a86;
+
+  --el-color-success: #006947;
+  --el-color-success-light-3: #3d9470;
+  --el-color-success-light-5: #80b49b;
+  --el-color-success-light-7: #b3d0c3;
+  --el-color-success-light-8: #cce0d8;
+  --el-color-success-light-9: #e5f0ec;
+  --el-color-success-dark-2: #005236;
+
+  --el-color-danger: #ba1a1a;
+  --el-color-danger-light-3: #cc5252;
+  --el-color-danger-light-5: #dd8c8c;
+  --el-color-danger-light-7: #eababa;
+  --el-color-danger-light-8: #f2d0d0;
+  --el-color-danger-light-9: #f9e8e8;
+  --el-color-danger-dark-2: #93000a;
+
+  --el-color-warning: #b45309;
+  --el-color-warning-light-3: #c97a3a;
+  --el-color-warning-light-5: #daa06c;
+  --el-color-warning-light-7: #e8c49e;
+  --el-color-warning-light-8: #f1d9bc;
+  --el-color-warning-light-9: #f8ecda;
+  --el-color-warning-dark-2: #8f4207;
+
+  --el-text-color-primary: #0b1c30;
+  --el-text-color-regular: #0b1c30;
+  --el-text-color-secondary: #414751;
+  --el-text-color-placeholder: #717783;
+  --el-text-color-disabled: #a0a8b4;
+
+  --el-border-color: #c1c7d3;
+  --el-border-color-light: #d3e4fe;
+  --el-border-color-lighter: #e5eeff;
+  --el-border-color-extra-light: #eff4ff;
+
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f8f9ff;
+  --el-bg-color-overlay: rgba(255, 255, 255, 0.96);
+
+  --el-fill-color: #eff4ff;
+  --el-fill-color-light: #f8f9ff;
+  --el-fill-color-lighter: #ffffff;
+  --el-fill-color-blank: #ffffff;
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 4px;
+  --el-border-radius-round: 9999px;
+
+  --el-font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --el-font-size-base: 15px;
+  --el-font-size-small: 13px;
+  --el-font-size-large: 17px;
+  --el-font-size-extra-large: 20px;
+}
+
+/* ─── Dark mode glass tokens ───────────────────────────────────────────────── */
+html.dark {
+  --glass-bg: rgba(33, 49, 69, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--el-font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: linear-gradient(135deg, #dce9ff 0%, #f8f9ff 45%, #e5eeff 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+html.dark body {
+  background: linear-gradient(135deg, #0b1c30 0%, #152336 50%, #1a2d45 100%);
+  background-attachment: fixed;
+}
+
+#app {
+  height: 100%;
+}
+
+/* ─── Glass card ───────────────────────────────────────────────────────────── */
+.el-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 1rem !important;
+  box-shadow: var(--glass-shadow) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.el-card:hover {
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.11) !important;
+}
+
+.el-card__header {
+  border-bottom: 1px solid var(--glass-border) !important;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--lumina-on-surface);
+}
+
+/* ─── Buttons ──────────────────────────────────────────────────────────────── */
+.el-button--primary {
+  background: linear-gradient(135deg, #005da7 0%, #2976c7 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(0, 93, 167, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.el-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 93, 167, 0.4) !important;
+}
+
+.el-button--primary:active {
+  transform: translateY(0);
+}
+
+.el-button:not(.el-button--primary):not(.el-button--danger):not(.el-button--success) {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-color: var(--glass-border) !important;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease !important;
+}
+
+.el-button:not(.el-button--primary):not(.el-button--danger):not(.el-button--success):hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ─── Inputs ───────────────────────────────────────────────────────────────── */
+.el-input__wrapper,
+.el-textarea__inner {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-color: var(--lumina-outline-variant) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+html.dark .el-input__wrapper,
+html.dark .el-textarea__inner {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.el-input__wrapper:hover,
+.el-textarea__inner:hover {
+  border-color: var(--lumina-primary) !important;
+}
+
+.el-input__wrapper.is-focus,
+.el-textarea__inner:focus {
+  border-color: var(--lumina-primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 93, 167, 0.12) !important;
+}
+
+/* ─── Select / Dropdown ────────────────────────────────────────────────────── */
+.el-select .el-input__wrapper {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.el-select-dropdown {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+/* ─── Dialog ───────────────────────────────────────────────────────────────── */
+.el-dialog {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 16px 48px rgba(31, 38, 135, 0.12) !important;
+}
+
+html.dark .el-dialog {
+  background: rgba(30, 50, 74, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4) !important;
+}
+
+.el-dialog__header {
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 16px;
+}
+
+html.dark .el-dialog__header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Menu (sidebar) ───────────────────────────────────────────────────────── */
+.el-menu {
+  background: transparent !important;
+  border-right: none !important;
+}
+
+.el-menu-item {
+  border-radius: 0.5rem !important;
+  margin: 2px 8px !important;
+  transition: background 0.2s ease !important;
+}
+
+.el-menu-item:hover {
+  background: rgba(0, 93, 167, 0.08) !important;
+}
+
+.el-menu-item.is-active {
+  background: rgba(0, 93, 167, 0.14) !important;
+  color: var(--lumina-primary) !important;
+}
+
+/* ─── Table ────────────────────────────────────────────────────────────────── */
+.el-table {
+  background: transparent !important;
+}
+
+.el-table th.el-table__cell {
+  background: rgba(229, 238, 255, 0.5) !important;
+}
+
+.el-table tr:hover > td {
+  background: rgba(0, 93, 167, 0.04) !important;
+}
+
+/* ─── Tag ──────────────────────────────────────────────────────────────────── */
+.el-tag {
+  border-radius: 9999px !important;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Alert ────────────────────────────────────────────────────────────────── */
+.el-alert {
+  background: rgba(255, 255, 255, 0.55) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 0.75rem !important;
+}
+
+/* ─── Timeline ─────────────────────────────────────────────────────────────── */
+.el-timeline-item__node {
+  background: var(--lumina-primary) !important;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 93, 167, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 93, 167, 0.4);
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+.ml-2 { margin-left: 8px; }
+
+.page-container {
+  padding: 24px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* ─── Page fade-in animation ───────────────────────────────────────────────── */
+.fade-enter-active {
+  animation: lumina-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lumina-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
