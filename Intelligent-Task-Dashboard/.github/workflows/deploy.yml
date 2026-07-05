@@ -1,0 +1,41 @@
+name: Deploy GitHub Pages
+on:
+  push:
+    branches: [ main ] # 你的主分支名
+
+# Pages部署必须的权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取代码
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 安装Node环境打包前端
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 安装依赖 + 打包生成dist静态文件
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 上传打包产物dist文件夹
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      # 自动部署到GitHub Pages
+      - name: Deploy Pages
+        uses: actions/deploy-pages@v4
