@@ -1,5 +1,5 @@
 <template>
-  <el-card header="任务统计">
+  <el-card header="任务统计" class="dashboard-panel">
     <div class="charts-row">
       <div class="chart-wrap">
         <p class="chart-title">状态分布</p>
@@ -27,11 +27,12 @@ use([CanvasRenderer, PieChart, BarChart, TitleComponent, TooltipComponent, Legen
 const taskStore = useTaskStore()
 
 const pieOption = computed(() => ({
+  color: ['#82b8dc', '#d59a3e', '#4e8363'],
   tooltip: { trigger: 'item' },
-  legend: { bottom: 0, itemWidth: 12, itemHeight: 12, textStyle: { fontSize: 12 } },
+  legend: { bottom: 0, itemWidth: 9, itemHeight: 9, textStyle: { color: '#5e6b66', fontSize: 11 } },
   series: [{
     type: 'pie',
-    radius: ['35%', '60%'],
+    radius: ['42%', '65%'],
     center: ['50%', '42%'],
     data: [
       { name: '待办', value: taskStore.todoTasks.length },
@@ -43,9 +44,11 @@ const pieOption = computed(() => ({
 }))
 
 const barOption = computed(() => ({
+  color: ['#2f5d50'],
   tooltip: { trigger: 'axis' },
-  xAxis: { type: 'category', data: ['高', '中', '低'] },
-  yAxis: { type: 'value' },
+  grid: { left: 28, right: 12, top: 14, bottom: 34 },
+  xAxis: { type: 'category', data: ['高', '中', '低'], axisLine: { lineStyle: { color: '#dedbd2' } }, axisLabel: { color: '#5e6b66' } },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: '#ebe8df' } }, axisLabel: { color: '#8b9690' } },
   series: [{
     type: 'bar',
     data: [
@@ -53,7 +56,8 @@ const barOption = computed(() => ({
       taskStore.tasks.filter((t) => t.priority === 'medium').length,
       taskStore.tasks.filter((t) => t.priority === 'low').length,
     ],
-    itemStyle: { color: '#409eff' },
+    barWidth: 18,
+    itemStyle: { borderRadius: [3, 3, 0, 0] },
   }],
 }))
 </script>

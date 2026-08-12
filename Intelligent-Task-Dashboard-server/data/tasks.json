@@ -1,43 +1,50 @@
 [
   {
-    "title": "达瓦达瓦大我",
-    "description": "瓦顶顶顶顶顶顶顶顶顶顶顶顶顶顶大哇哇哇哇呜呜呜呜呜呜呜呜呜呜呜呜哇哇呜呜呜呜呜呜呜呜呜",
+    "title": "整理作品集首页",
+    "description": "把项目亮点、截图和技术栈整理成一页清晰的介绍。",
     "priority": "high",
-    "status": "done",
-    "dueDate": "2026-05-01",
+    "status": "todo",
+    "dueDate": "2026-08-04",
+    "id": 1,
+    "createdAt": "2026-08-01T09:00:00.000Z",
+    "completedAt": "2026-08-04T13:37:47.164Z"
+  },
+  {
+    "title": "完成 React 组件练习",
+    "description": "完成表单校验和列表筛选两个小练习。",
+    "priority": "high",
+    "status": "todo",
+    "dueDate": "2026-08-05",
     "id": 2,
-    "createdAt": "2026-05-08T08:52:09.941Z"
+    "createdAt": "2026-08-02T10:30:00.000Z"
   },
   {
-    "title": "洗衣服",
-    "description": "",
+    "title": "阅读设计系统章节",
+    "description": "记录三个可以应用到当前项目的界面细节。",
     "priority": "medium",
-    "status": "done",
-    "dueDate": "",
+    "status": "todo",
+    "dueDate": "2026-08-06",
     "id": 3,
-    "createdAt": "2026-05-11T08:10:23.571Z"
+    "createdAt": "2026-08-02T15:20:00.000Z"
   },
   {
-    "title": "帮人干活",
-    "description": "",
+    "title": "整理本周复盘笔记",
+    "description": "写下本周完成的事情，以及下周要减少的干扰。",
     "priority": "medium",
-    "status": "done",
-    "dueDate": "",
+    "status": "todo",
+    "dueDate": "2026-08-03",
     "id": 4,
-    "createdAt": "2026-05-11T08:10:38.468Z"
+    "createdAt": "2026-07-31T14:10:00.000Z",
+    "completedAt": "2026-08-03T18:10:00.000Z"
   },
   {
-    "title": "写作业",
-    "status": "todo",
-    "priority": "medium",
+    "title": "跑步 30 分钟",
+    "description": "晚饭前去公园走跑一圈，让大脑换个频道。",
+    "priority": "low",
+    "status": "done",
+    "dueDate": "2026-08-04",
     "id": 5,
-    "createdAt": "2026-07-05T09:30:44.804Z"
-  },
-  {
-    "title": "学习React",
-    "status": "todo",
-    "priority": "high",
-    "id": 6,
-    "createdAt": "2026-07-05T09:54:36.795Z"
+    "createdAt": "2026-08-03T09:40:00.000Z",
+    "completedAt": "2026-08-04T07:35:00.000Z"
   }
 ]

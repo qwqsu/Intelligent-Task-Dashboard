@@ -21,4 +21,5 @@ const isDark = computed(() => userStore.theme === 'dark')
 <style scoped>
 .theme-toggle { display: flex; flex-direction: column; gap: 12px; }
 .setting-label { font-size: 14px; color: var(--el-text-color-regular); }
+.theme-toggle :deep(.el-switch__label) { color: var(--el-text-color-secondary); font-size: 12px; }
 </style>

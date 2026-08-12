@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div class="page-container dashboard-page">
     <div class="dashboard-grid">
       <DashboardHeader />
       <div class="widgets-row">
@@ -24,13 +24,23 @@ import WeatherWidget from '@/components/Dashboard/WeatherWidget.vue'
 .dashboard-grid {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 .widgets-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
+  grid-template-columns: 1.2fr 1fr 0.92fr;
+  gap: 18px;
 }
-.widget { min-height: 160px; }
+.widget { min-width: 0; min-height: 190px; }
 .stats-widget { min-height: 320px; }
+
+@media (max-width: 1180px) {
+  .widgets-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .widget:last-child { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .widgets-row { grid-template-columns: 1fr; }
+  .widget:last-child { grid-column: auto; }
+}
 </style>

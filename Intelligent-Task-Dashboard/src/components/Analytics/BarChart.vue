@@ -18,12 +18,14 @@ const props = defineProps<{
 
 const option = computed(() => ({
   tooltip: { trigger: 'axis' },
-  xAxis: { type: 'category', data: props.data.map((d) => d.name) },
-  yAxis: { type: 'value', minInterval: 1 },
+  grid: { left: 22, right: 12, top: 16, bottom: 28 },
+  xAxis: { type: 'category', data: props.data.map((d) => d.name), axisLine: { lineStyle: { color: '#dedbd2' } }, axisLabel: { color: '#5e6b66' } },
+  yAxis: { type: 'value', minInterval: 1, splitLine: { lineStyle: { color: '#ebe8df' } }, axisLabel: { color: '#8b9690' } },
   series: [{
     type: 'bar',
     data: props.data.map((d) => d.value),
-    itemStyle: { color: '#67c23a' },
+    barWidth: 24,
+    itemStyle: { color: '#2f5d50', borderRadius: [3, 3, 0, 0] },
   }],
 }))
 </script>

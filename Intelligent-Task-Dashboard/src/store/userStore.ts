@@ -45,7 +45,8 @@ export const useUserStore = defineStore('user', {
       this.compactLayout = val
     },
     login(username: string, password: string): boolean {
-      const user = this.users.find((u) => u.username === username && u.password === password)
+      const normalizedUsername = username.trim()
+      const user = this.users.find((u) => u.username === normalizedUsername && u.password === password)
       if (user) {
         this.name = user.username
         this.avatar = user.avatar
@@ -55,8 +56,9 @@ export const useUserStore = defineStore('user', {
       return false
     },
     register(username: string, password: string): boolean {
-      if (this.users.find((u) => u.username === username)) return false
-      this.users.push({ username, password, avatar: '' })
+      const normalizedUsername = username.trim()
+      if (!normalizedUsername || this.users.find((u) => u.username === normalizedUsername)) return false
+      this.users.push({ username: normalizedUsername, password, avatar: '' })
       return true
     },
     changePassword(oldPassword: string, newPassword: string): boolean {
