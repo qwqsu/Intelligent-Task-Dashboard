@@ -7,6 +7,7 @@
       placeholder="输入你的问题或请求..."
       :disabled="loading"
       @keydown.ctrl.enter="handleSend"
+      @keydown.meta.enter="handleSend"
     />
     <div class="input-footer">
       <span class="hint">Ctrl+Enter 发送</span>

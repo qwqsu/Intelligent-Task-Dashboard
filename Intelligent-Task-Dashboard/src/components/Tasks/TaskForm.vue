@@ -56,6 +56,14 @@ const form = reactive({
   dueDate: '',
 })
 
+function resetForm() {
+  form.title = ''
+  form.description = ''
+  form.priority = 'medium'
+  form.status = 'todo'
+  form.dueDate = ''
+}
+
 watch(() => props.initial, (val) => {
   if (val) {
     form.title = val.title
@@ -63,7 +71,7 @@ watch(() => props.initial, (val) => {
     form.priority = val.priority
     form.status = val.status
     form.dueDate = val.dueDate ?? ''
-  }
+  } else resetForm()
 }, { immediate: true })
 
 const rules: FormRules = {
@@ -73,7 +81,13 @@ const rules: FormRules = {
 }
 
 async function handleSubmit() {
-  await formRef.value?.validate()
+  let valid = false
+  try {
+    valid = await formRef.value?.validate() ?? false
+  } catch {
+    return
+  }
+  if (!valid) return
   emit('submit', { ...form })
 }
 </script>

@@ -32,9 +32,9 @@ const notifications = computed(() => {
   const now = dayjs()
 
   taskStore.tasks
-    .filter((t) => t.status !== 'done' && t.dueDate && dayjs(t.dueDate).diff(now, 'day') <= 2)
+      .filter((t) => t.status !== 'done' && t.dueDate && dayjs(t.dueDate).startOf('day').diff(now.startOf('day'), 'day') <= 2)
     .forEach((t) => {
-      const diff = dayjs(t.dueDate).diff(now, 'day')
+      const diff = dayjs(t.dueDate).startOf('day').diff(now.startOf('day'), 'day')
       items.push({
         id: `task-${t.id}`,
         type: diff < 0 ? 'danger' : 'warning',

@@ -1,14 +1,13 @@
 <template>
   <div class="chat-messages" ref="messagesEl">
     <div v-if="!aiStore.messages.length" class="empty-chat">
-      <el-icon size="48" color="#c0c4cc"><ChatDotRound /></el-icon>
-      <p>开始与 AI 助手对话吧</p>
+      <div class="empty-mark">D</div>
+      <p>从一个具体的困扰开始</p>
       <div class="quick-prompts">
         <el-button
           v-for="prompt in quickPrompts"
           :key="prompt"
           size="small"
-          round
           @click="emit('send', prompt)"
         >{{ prompt }}</el-button>
       </div>
@@ -19,20 +18,14 @@
       class="message"
       :class="msg.role"
     >
-      <div class="message-avatar">
-        <el-avatar size="small" :style="{ background: msg.role === 'assistant' ? '#409eff' : '#67c23a' }">
-          {{ msg.role === 'assistant' ? 'AI' : '我' }}
-        </el-avatar>
-      </div>
+        <div class="message-avatar">{{ msg.role === 'assistant' ? 'D' : '我' }}</div>
       <div class="message-content">
         <p class="message-text">{{ msg.content }}</p>
         <span class="message-time">{{ formatTime(msg.timestamp) }}</span>
       </div>
     </div>
     <div v-if="aiStore.loading" class="message assistant">
-      <div class="message-avatar">
-        <el-avatar size="small" style="background: #409eff">AI</el-avatar>
-      </div>
+        <div class="message-avatar">D</div>
       <div class="message-content">
         <el-skeleton :rows="2" animated />
       </div>
@@ -50,9 +43,9 @@ const aiStore = useAIStore()
 const messagesEl = ref<HTMLElement>()
 
 const quickPrompts = [
-  '帮我分析今天的任务优先级',
-  '给我一些时间管理建议',
-  '总结我的待办事项',
+  '帮我整理今天的任务顺序',
+  '给我一个可执行的时间安排',
+  '总结我的待办并找出下一步',
 ]
 
 watch(() => aiStore.messages.length, async () => {
@@ -68,17 +61,21 @@ function formatTime(iso: string) {
 </script>
 
 <style scoped>
-.chat-messages { min-height: 300px; max-height: 500px; overflow-y: auto; padding: 8px 0; }
-.empty-chat { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 0; color: var(--el-text-color-secondary); }
+.chat-messages { min-height: 300px; max-height: 560px; overflow-y: auto; padding: 8px 0; }
+.empty-chat { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 70px 0; color: var(--el-text-color-secondary); }
+.empty-mark { display: grid; width: 42px; height: 42px; place-items: center; background: var(--moss); color: #fff; font-size: 17px; font-weight: 800; }
 .quick-prompts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .message { display: flex; gap: 10px; margin-bottom: 16px; }
 .message.user { flex-direction: row-reverse; }
 .message-content { max-width: 70%; }
 .message.user .message-content { align-items: flex-end; display: flex; flex-direction: column; }
+.message-avatar { display: grid; width: 26px; height: 26px; flex-shrink: 0; place-items: center; background: var(--moss-soft); color: var(--moss); font-size: 11px; font-weight: 800; }
+.message.user .message-avatar { background: var(--coral-soft); color: var(--coral); }
 .message-text {
   background: var(--el-fill-color-light);
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: 5px;
   font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;

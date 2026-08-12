@@ -17,11 +17,12 @@ const props = defineProps<{
 }>()
 
 const option = computed(() => ({
+  color: ['#82b8dc', '#d59a3e', '#4e8363'],
   tooltip: { trigger: 'item' },
-  legend: { bottom: 0 },
+  legend: { bottom: 0, itemWidth: 9, itemHeight: 9, textStyle: { color: '#5e6b66', fontSize: 11 } },
   series: [{
     type: 'pie',
-    radius: ['40%', '70%'],
+    radius: ['43%', '67%'],
     data: props.data,
     label: { show: false },
   }],

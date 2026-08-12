@@ -43,27 +43,53 @@ const form = reactive({
   color: '#409eff',
 })
 
-watch(() => props.initial, (val) => {
+function resetForm() {
+  form.title = ''
+  form.description = ''
+  form.start = ''
+  form.end = ''
+  form.color = '#2f5d50'
+}
+
+watch([() => props.initial, () => props.defaultDate], ([val, defaultDate]) => {
   if (val) {
     form.title = val.title
     form.description = val.description ?? ''
     form.start = val.start
     form.end = val.end
     form.color = val.color ?? '#409eff'
-  } else if (props.defaultDate) {
-    form.start = `${props.defaultDate}T09:00:00`
-    form.end = `${props.defaultDate}T10:00:00`
-  }
+  } else if (defaultDate) {
+    form.title = ''
+    form.description = ''
+    form.start = `${defaultDate}T09:00:00`
+    form.end = `${defaultDate}T10:00:00`
+    form.color = '#2f5d50'
+  } else resetForm()
 }, { immediate: true })
 
 const rules: FormRules = {
   title: [{ required: true, message: '请输入事件标题', trigger: 'blur' }],
   start: [{ required: true, message: '请选择开始时间', trigger: 'change' }],
-  end: [{ required: true, message: '请选择结束时间', trigger: 'change' }],
+  end: [
+    { required: true, message: '请选择结束时间', trigger: 'change' },
+    {
+      validator: (_rule, value, callback) => {
+        if (value && form.start && !dayjs(value).isAfter(dayjs(form.start))) callback(new Error('结束时间需要晚于开始时间'))
+        else callback()
+      },
+      trigger: 'change',
+    },
+  ],
 }
 
 async function handleSubmit() {
-  await formRef.value?.validate()
+  let valid = false
+  try {
+    valid = await formRef.value?.validate() ?? false
+  } catch {
+    return
+  }
+  if (!valid) return
   if (props.initial) {
     emit('submit', { ...props.initial, ...form })
   } else {

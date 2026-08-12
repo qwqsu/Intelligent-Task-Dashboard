@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import dayjs from 'dayjs'
 import * as taskApi from '@/api/taskApi'
 
 export interface Task {
@@ -9,6 +10,7 @@ export interface Task {
   priority: 'low' | 'medium' | 'high'
   dueDate?: string
   createdAt: string
+  completedAt?: string
 }
 
 export const useTaskStore = defineStore('task', {
@@ -20,6 +22,20 @@ export const useTaskStore = defineStore('task', {
     todoTasks: (state) => state.tasks.filter((t) => t.status === 'todo'),
     inProgressTasks: (state) => state.tasks.filter((t) => t.status === 'in-progress'),
     doneTasks: (state) => state.tasks.filter((t) => t.status === 'done'),
+    todayTasks: (state) => {
+      const today = dayjs().format('YYYY-MM-DD')
+      return state.tasks.filter((task) => task.dueDate?.startsWith(today))
+    },
+    overdueTasks: (state) =>
+      state.tasks.filter(
+        (task) => task.status !== 'done' && !!task.dueDate && dayjs(task.dueDate).isBefore(dayjs(), 'day'),
+      ),
+    todayCompletion: (state) => {
+      const today = dayjs().format('YYYY-MM-DD')
+      const tasks = state.tasks.filter((task) => task.dueDate?.startsWith(today))
+      if (!tasks.length) return 0
+      return Math.round((tasks.filter((task) => task.status === 'done').length / tasks.length) * 100)
+    },
     tasksByPriority: (state) => {
       const priorityOrder = { high: 0, medium: 1, low: 2 }
       const statusOrder = { 'todo': 0, 'in-progress': 0, 'done': 1 }
@@ -36,7 +52,8 @@ export const useTaskStore = defineStore('task', {
         this.tasks = await taskApi.getTasks()
         this.loaded = true
       } catch {
-        // 后端不可用时保持现有数据
+        // 后端不可用时保留本地持久化数据，应用仍可继续使用。
+        this.loaded = true
       }
     },
     async addTask(task: Omit<Task, 'id' | 'createdAt'>) {
@@ -44,7 +61,7 @@ export const useTaskStore = defineStore('task', {
         const created = await taskApi.createTask(task)
         this.tasks.push(created)
       } catch {
-        // 后端不可用时本地添加
+        // 后端不可用时本地添加，配合持久化插件避免刷新后丢失。
         this.tasks.push({ ...task, id: Date.now(), createdAt: new Date().toISOString() })
       }
     },
@@ -68,7 +85,14 @@ export const useTaskStore = defineStore('task', {
     },
     async updateStatus(id: number, status: Task['status']) {
       const task = this.tasks.find((t) => t.id === id)
-      if (task) await this.updateTask({ ...task, status })
+      if (task) {
+        await this.updateTask({
+          ...task,
+          status,
+          completedAt: status === 'done' ? task.completedAt ?? new Date().toISOString() : undefined,
+        })
+      }
     },
   },
+  persist: { paths: ['tasks'] },
 })

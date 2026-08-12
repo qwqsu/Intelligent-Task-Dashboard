@@ -14,8 +14,16 @@ const client = new OpenAI({
   baseURL: 'https://api.deepseek.com',
 })
 
-// 允许前端跨域访问
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }))
+// 允许前端开发服务器通过 localhost / 127.0.0.1 访问。
+// 两种地址在本地浏览器里经常混用，否则登录成功后任务接口会被 CORS 静默拦截。
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174',
+  ],
+}))
 app.use(express.json())
 
 // ─── 工具函数：读写 JSON 文件 ───────────────────────────────────────────────
