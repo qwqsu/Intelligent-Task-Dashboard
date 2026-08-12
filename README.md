@@ -60,6 +60,17 @@
    └─ .env.example                        # 后端环境变量示例
 ```
 
+## 预览
+
+<img width="1280" height="636" alt="PixPin_2026-08-12_14-37-56" src="https://github.com/user-attachments/assets/e3eef231-bac9-43c9-be55-fa786fe9a27b" />
+<img width="1280" height="636" alt="PixPin_2026-08-12_14-39-04" src="https://github.com/user-attachments/assets/68b0074f-4534-4734-8b4a-a983a04d9922" />
+<img width="1280" height="636" alt="PixPin_2026-08-12_14-39-35" src="https://github.com/user-attachments/assets/848365dd-54d2-46fe-bee5-511c9a7057d2" />
+<img width="1280" height="636" alt="PixPin_2026-08-12_14-40-04" src="https://github.com/user-attachments/assets/d3a1e079-47a2-4920-8d87-a4cd32bcf8f6" />
+<img width="1280" height="636" alt="PixPin_2026-08-12_14-40-18" src="https://github.com/user-attachments/assets/ea05505c-bf71-466b-810d-5258a653d00b" />
+
+
+
+
 ## 本地运行
 
 ### 1. 启动后端
@@ -145,16 +156,3 @@ PORT=3000
 | `create_task` | “明天提醒我整理作品集，设为高优先级” |
 | `create_event` | “周五晚上七点安排一小时复盘” |
 
-## 本轮优化与修复记录
-
-这次重构主要完成了以下工作：
-
-1. 重做全局视觉系统，移除旧版玻璃拟态、渐变和过度圆角，增加暗色侧栏、移动端导航和紧凑布局。
-2. 增加任务搜索、优先级筛选、排序、今天/逾期范围和仪表盘直达今日清单。
-3. 修复日期按 UTC 计算导致的跨日问题，修复日程结束时间早于开始时间仍可提交的问题。
-4. 修复表单校验结果未被正确判断的问题，增加登录、注册、头像和密码表单的有效性检查。
-5. 增加完成时间 `completedAt`，让复盘趋势基于完成时间统计；请求失败时保留本地任务和日程。
-6. 修复 `127.0.0.1` 开发地址的 CORS 问题，修正 Vite 重复 `base` 配置，并将页面路由改为按需加载。
-7. 清理演示数据中的乱码、过期样例和非法时间区间，替换为可直接展示的规划场景。
-8. 为天气接口增加离线状态提示，避免外部天气服务失败时出现突兀的空白错误块。
-9. 修复暗色主题复用文字色变量作为侧栏背景，导致左侧区域变亮、导航文字对比度不足的问题；主题现在使用独立的侧栏色板。
